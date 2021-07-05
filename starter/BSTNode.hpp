@@ -13,7 +13,11 @@ class BSTNode {
 		 *  no parent, and no children.
 		 *  TODO
 		 */
-		BSTNode(const Data & d) {}
+		BSTNode(const Data & d) {
+			cout << "BSTNode created." << endl;
+			//initialize data
+			this->data = d;
+		}
 
 		BSTNode<Data>* left;
 		BSTNode<Data>* right;
@@ -27,6 +31,29 @@ class BSTNode {
 		 *  or 0 if there is none. TODO
 		 */
 		BSTNode<Data>* successor() {
+
+			// Successor is next highest value
+			// Return 0 if its highest value
+
+			// Check right node, if found, that is successor
+			// Else check parent,
+			// Continue checking parents until found or null.
+			
+			BSTNode<Data>* parentSearch = this->parent;
+
+			if (this->right != NULL) {
+				if (this->right->data > this->data) {
+					return this->right;
+				}
+			} 
+			
+			while (parentSearch != NULL) {
+				if (parentSearch->data > this->data){
+					return parentSearch;
+				}
+				parentSearch = parentSearch->parent;
+			}
+
 			return 0;
 		}
 
