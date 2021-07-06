@@ -52,6 +52,7 @@ class BST {
          BSTNode<Data>* current = this->root;
 
          BSTNode<Data> newNode = BSTNode<Data>(item);
+         unsigned int currentHeight = 0;
 
          while (current != NULL) {
             if (!((current->data < item) || (item < current->data))) {
@@ -60,21 +61,42 @@ class BST {
 
             if (item < current->data){
                if (current->left == NULL) {
+                  // update iheight
+                  currentHeight++;
+                  cout << "sopa" << endl;
+                  if (currentHeight > iheight) {
+                     iheight = currentHeight;
+                  }
+                  
+                  // add node
                   newNode.parent = current;
                   current->left = &newNode;
+                  isize++;
                   return true;
                }
                current = current->left;
             } else {
                if (current->right == NULL) {
+                  // update iheight
+                  currentHeight++;
+                  cout << currentHeight << endl;
+                  if (currentHeight > iheight) {
+                     iheight = currentHeight;
+                  }
+                  
+                  // add node
                   newNode.parent = current;
                   current->right = &newNode;
+                  isize++;
                   return true;
                }
                current = current->right;
             }
          }
-         return false;
+         current = &newNode;
+         iheight = 0;
+         isize++;
+         return true;
       }
 
 
@@ -187,7 +209,7 @@ class BST {
          }     
          deleteAll(current->left);
          deleteAll(current->right);
-         delete(current);      // delete current node         
+         delete(current);      // delete current node  
       }
 
 
