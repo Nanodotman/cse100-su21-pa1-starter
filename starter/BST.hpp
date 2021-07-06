@@ -116,12 +116,16 @@ class BST {
        *  TODO
        */
       virtual iterator find(const Data& item) const {
-         BSTNode<Data>* current = this->root;
-         iterator itr = BSTIterator<Data>(current);    // Initialized iterator
+         //BSTNode<Data>* current = this->root;
+         iterator itr = begin();    // Initialized iterator
 
          while (*itr < item || item < *itr) {
             itr++;
+            if (itr == end()) {
+               return end();
+            }
          }
+
          return itr;
       }
 

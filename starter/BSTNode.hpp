@@ -14,7 +14,7 @@ class BSTNode {
 		 *  TODO
 		 */
 		BSTNode(const Data & d) : data(d) {
-			
+
 		}
 
 		BSTNode<Data>* left;
