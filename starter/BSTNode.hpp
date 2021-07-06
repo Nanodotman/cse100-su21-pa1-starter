@@ -32,23 +32,24 @@ class BSTNode {
 
 			// Successor is next highest value
 			// Return 0 if its highest value
-
-			// Check right node, if found, that is successor
-			// Else check parent,
-			// Continue checking parents until found or null.
 			
-			BSTNode<Data>* parentSearch = this->parent;
+			BSTNode<Data>* rightSearch = this->right;
 
 			if (this->right != NULL) {
-				if (this->right->data > this->data) {
-					return this->right;
+				while (rightSearch->left != NULL) {
+					rightSearch = rightSearch->left;
 				}
-			} 
+				return rightSearch;
+			}
 			
+			BSTNode<Data>* current = this;
+			BSTNode<Data>* parentSearch = this->parent;
+
 			while (parentSearch != NULL) {
-				if (parentSearch->data > this->data){
+				if (current != parentSearch->right){
 					return parentSearch;
 				}
+				current = parentSearch;
 				parentSearch = parentSearch->parent;
 			}
 
