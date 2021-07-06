@@ -49,6 +49,31 @@ class BST {
        *  TODO
        */
       virtual bool insert(const Data& item) {
+         BSTNode<Data>* current = this->root;
+
+         BSTNode<Data> newNode = BSTNode<Data>(item);
+
+         while (current != NULL) {
+            if (!((current->data < item) || (item < current->data))) {
+               return false;
+            }
+
+            if (item < current->data){
+               if (current->left == NULL) {
+                  newNode.parent = current;
+                  current->left = &newNode;
+                  return true;
+               }
+               current = current->left;
+            } else {
+               if (current->right == NULL) {
+                  newNode.parent = current;
+                  current->right = &newNode;
+                  return true;
+               }
+               current = current->right;
+            }
+         }
          return false;
       }
 
@@ -62,7 +87,13 @@ class BST {
        *  TODO
        */
       virtual iterator find(const Data& item) const {
-         return 0; 
+         BSTNode<Data>* current = this->root;
+         iterator itr = BSTIterator<Data>(current);    // Initialized iterator
+
+         while (*itr < item || item < *itr) {
+            itr++;
+         }
+         return itr;
       }
 
 
@@ -70,7 +101,7 @@ class BST {
        *  TODO 
        */
       unsigned int size() const {
-         return 0;
+         return this->isize;
       }
 
       /** Return the height of the BST.
@@ -79,7 +110,7 @@ class BST {
        *  TODO  
        */
       unsigned int height() const {
-         return 0;
+         return this->iheight;
       }
 
 

@@ -13,10 +13,8 @@ class BSTNode {
 		 *  no parent, and no children.
 		 *  TODO
 		 */
-		BSTNode(const Data & d) {
+		BSTNode(const Data & d) : data(d) {
 			cout << "BSTNode created." << endl;
-			//initialize data
-			this->data = d;
 		}
 
 		BSTNode<Data>* left;
