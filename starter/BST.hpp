@@ -49,53 +49,60 @@ class BST {
        *  TODO
        */
       virtual bool insert(const Data& item) {
+         //cout << "inserting: " << item << endl;
          BSTNode<Data>* current = this->root;
 
-         BSTNode<Data> newNode = BSTNode<Data>(item);
+         BSTNode<Data>* newNode = new BSTNode<Data>(item);
          unsigned int currentHeight = 0;
 
          while (current != NULL) {
-            if (!((current->data < item) || (item < current->data))) {
+            //cout << current->data << endl;
+            if (!(current->data < item || item < current->data)) {
+               //cout << "not inserting equal values" << endl;
+               delete(newNode);
                return false;
             }
 
             if (item < current->data){
+               currentHeight++;
                if (current->left == NULL) {
                   // update iheight
-                  currentHeight++;
-                  cout << "sopa" << endl;
+                  //cout << "inserting item " << item << " as left child of " << current->data << endl;
                   if (currentHeight > iheight) {
                      iheight = currentHeight;
                   }
                   
                   // add node
-                  newNode.parent = current;
-                  current->left = &newNode;
+                  newNode->parent = current;
+                  current->left = newNode;
                   isize++;
                   return true;
                }
                current = current->left;
             } else {
+               currentHeight++;
                if (current->right == NULL) {
                   // update iheight
-                  currentHeight++;
-                  cout << currentHeight << endl;
+                  //cout << "inserting item " << item << " as right child of " << current->data << endl;
                   if (currentHeight > iheight) {
                      iheight = currentHeight;
                   }
                   
                   // add node
-                  newNode.parent = current;
-                  current->right = &newNode;
+                  newNode->parent = current;
+                  current->right = newNode;
                   isize++;
                   return true;
                }
                current = current->right;
             }
          }
-         current = &newNode;
+
+         // only for root
+         this->root = newNode;
          iheight = 0;
          isize++;
+         //cout << "root: " << this->root->data << endl;
          return true;
       }
 
